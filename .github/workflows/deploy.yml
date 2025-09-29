@@ -1,4 +1,4 @@
-name: Hello Cloud Workflow
+name: Deploy to AWS EC2
 
 on:
   push:
@@ -6,12 +6,41 @@ on:
       - main
 
 jobs:
-  hello:
+  deploy:
     runs-on: ubuntu-latest
 
     steps:
+      # Step 1: Checkout repo
       - name: Checkout repository
         uses: actions/checkout@v3
 
+      # Step 2: Print Hello Cloud (sanity check)
       - name: Print Hello Cloud
-        run: echo "Hello Cloud"
+        run: echo "Hello Cloud 🚀 Starting deployment..."
+
+      # Step 3: Deploy to EC2 via SSH
+      - name: Deploy to EC2
+        uses: appleboy/ssh-action@v1.0.0
+        with:
+          host: ${{ secrets.EC2_HOST }}
+          username: ubuntu
+          key: ${{ secrets.EC2_SSH_KEY }}
+          script: |
+            set -e
+            echo "✅ Connected to EC2"
+
+            # Go to app directory
+            cd /var/www/html
+
+            # Reset repo safely to avoid conflicts
+            sudo git fetch origin main
+            sudo git reset --hard origin/main
+
+            echo "✅ Code updated from GitHub"
+
+            # Reload Nginx
+            sudo systemctl reload nginx
+            echo "✅ Nginx reloaded"
+
+            # Log deployment
+            echo "Deployed on $(date)" | sudo tee -a /var/www/html/deploy.log
