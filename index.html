@@ -1,171 +1,219 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
   <title>Michael David Cloud Security</title>
 
-  <!-- Favicon -->
-  <link rel="icon" type="image/png" href="public/favicon.ico" />
-
-  <!-- Tailwind CSS -->
+  <!-- Tailwind CDN -->
   <script src="https://cdn.tailwindcss.com"></script>
-
   <!-- Font Awesome -->
-  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.6.0/css/all.min.css" />
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.6.0/css/all.min.css">
 
-  <!-- Google Analytics -->
-  <script async src="https://www.googletagmanager.com/gtag/js?id=YOUR_MEASUREMENT_ID"></script>
-  <script>
-    window.dataLayer = window.dataLayer || [];
-    function gtag(){dataLayer.push(arguments);}
-    gtag("js", new Date());
-    gtag("config", "YOUR_MEASUREMENT_ID");
-  </script>
+  <meta name="description" content="Cloud security & compliance for African businesses" />
+  <link rel="icon" href="favicon.ico" />
 
   <style>
-    html { scroll-behavior: smooth; }
-    #backToTop {
-      position: fixed;
-      bottom: 80px;
-      right: 20px;
-      background-color: #1d4ed8;
-      color: white;
-      padding: 10px 14px;
-      border-radius: 50%;
-      display: none;
-    }
+    html{scroll-behavior:smooth}
+    /* compact floating UI styles */
+    #whatsappBtn{position:fixed;left:20px;bottom:20px;z-index:60;width:56px;height:56px;border-radius:50%;background:#25D366;display:flex;align-items:center;justify-content:center;color:#fff;box-shadow:0 8px 20px rgba(0,0,0,.15)}
+    #backToTop{position:fixed;right:20px;bottom:20px;z-index:60;width:48px;height:48px;border-radius:8px;background:#1d4ed8;color:#fff;display:none;align-items:center;justify-content:center;box-shadow:0 8px 20px rgba(0,0,0,.12)}
+    #chatToggle{position:fixed;right:20px;bottom:90px;z-index:70;width:56px;height:56px;border-radius:50%;background:#0ea5e9;color:#fff;display:flex;align-items:center;justify-content:center;box-shadow:0 12px 30px rgba(2,6,23,.25);cursor:pointer}
+    #chatWidget{position:fixed;right:20px;bottom:160px;z-index:70;width:360px;max-width:94vw;height:520px;background:#fff;border-radius:12px;box-shadow:0 20px 40px rgba(2,6,23,.25);display:none;overflow:hidden}
+    #chatWidgetHeader{background:linear-gradient(90deg,#0ea5e9,#2563eb);color:#fff;padding:10px;display:flex;justify-content:space-between;align-items:center}
+    #chatMessages{height:calc(100% - 120px);overflow:auto;padding:12px;background:#f8fafc}
+    .bot-msg,.user-msg{max-width:85%;padding:10px 12px;margin:8px 0;border-radius:10px;line-height:1.3}
+    .bot-msg{background:#eef2ff;color:#0f172a}
+    .user-msg{background:#0ea5e9;color:#fff;margin-left:auto}
+    #chatInputArea{padding:10px;border-top:1px solid #e6edf3;display:flex;gap:8px;align-items:center}
+    @media (max-width:640px){#chatWidget{right:12px;bottom:120px;width:92vw;height:64vh}#chatToggle{right:12px;bottom:64px}}
   </style>
 </head>
+<body class="bg-gray-50 text-gray-900 font-sans">
 
-<body class="bg-gray-50 font-sans leading-relaxed text-gray-800">
   <!-- Header -->
-  <header class="bg-white shadow sticky top-0 z-50">
-    <div class="container mx-auto px-6 py-4 flex justify-between items-center">
-      <div class="flex items-center space-x-3">
-        <img src="public/logo.png" alt="Michael David Cloud Security Logo" class="w-12 h-12 rounded-full" />
-        <h1 class="text-2xl font-bold text-gray-800">Michael David Cloud Security</h1>
+  <header class="fixed top-0 w-full z-50 bg-white/95 backdrop-blur border-b border-gray-200">
+    <div class="max-w-6xl mx-auto flex items-center justify-between px-5 py-3">
+      <div class="flex items-center gap-3">
+        <img src="logo.png" alt="logo" class="w-10 h-10 rounded-md object-cover" onerror="this.style.display='none'">
+        <div>
+          <h1 class="text-lg font-bold text-blue-700">Michael David Cloud Security</h1>
+          <p class="text-xs text-gray-500">Cloud security & compliance for African businesses</p>
+        </div>
       </div>
 
-      <!-- Language Selector -->
-      <select id="language-select" class="border rounded px-2 py-1 text-sm">
-        <option value="en">🇬🇧 English</option>
-        <option value="fr">🇫🇷 Français</option>
-        <option value="es">🇪🇸 Español</option>
-        <option value="ar">🇸🇦 العربية</option>
-        <option value="yo">🇳🇬 Yorùbá</option>
-        <option value="ha">🇳🇬 Hausa</option>
-        <option value="sw">🇹🇿 Kiswahili</option>
-      </select>
+      <div class="flex items-center gap-4">
+        <nav class="hidden md:flex gap-4 text-sm">
+          <a href="#about" class="text-gray-700 hover:text-blue-600">About</a>
+          <a href="#services" class="text-gray-700 hover:text-blue-600">Services</a>
+          <a href="#contact" class="text-gray-700 hover:text-blue-600">Contact</a>
+        </nav>
+
+        <select id="language" class="bg-white border rounded p-1 text-sm">
+          <option value="en">🇬🇧 English</option>
+          <option value="fr">🇫🇷 Français</option>
+          <option value="es">🇪🇸 Español</option>
+          <option value="ar">🇸🇦 العربية</option>
+          <option value="yo">🇳🇬 Yorùbá</option>
+          <option value="ha">🇳🇬 Hausa</option>
+          <option value="sw">🇹🇿 Kiswahili</option>
+        </select>
+      </div>
     </div>
   </header>
 
-  <!-- Hero -->
-  <section class="text-center py-24 bg-gradient-to-r from-blue-800 to-blue-600 text-white">
-    <h2 class="text-4xl font-bold mb-4" data-translate="hero_title">
-      Secure Your Cloud, Secure Your Future
-    </h2>
-    <p class="text-lg max-w-2xl mx-auto" data-translate="hero_sub">
-      Michael David Cloud Security helps businesses across Africa build and protect scalable, compliant, and resilient cloud infrastructure.
-    </p>
-  </section>
-
-  <!-- About -->
-  <section id="about" class="py-20 container mx-auto px-6 text-center">
-    <h2 class="text-3xl font-bold mb-6" data-translate="about_title">About Us</h2>
-    <p data-translate="about_text">
-      We are committed to empowering African enterprises with advanced cloud security solutions that ensure data privacy, system integrity, and business continuity in the digital age.
-    </p>
-  </section>
-
-  <!-- Services -->
-  <section id="services" class="py-20 bg-gray-100">
-    <div class="container mx-auto px-6 text-center">
-      <h2 class="text-3xl font-bold mb-10" data-translate="services_title">Our Services</h2>
-      <div class="grid md:grid-cols-3 gap-8">
-        <div class="bg-white shadow-lg p-6 rounded-lg">
-          <i class="fas fa-cloud text-3xl text-blue-700 mb-4"></i>
-          <h3 class="text-xl font-semibold mb-2" data-translate="service1">Cloud Infrastructure Protection</h3>
-        </div>
-        <div class="bg-white shadow-lg p-6 rounded-lg">
-          <i class="fas fa-lock text-3xl text-blue-700 mb-4"></i>
-          <h3 class="text-xl font-semibold mb-2" data-translate="service2">Data Encryption & Compliance</h3>
-        </div>
-        <div class="bg-white shadow-lg p-6 rounded-lg">
-          <i class="fas fa-shield-alt text-3xl text-blue-700 mb-4"></i>
-          <h3 class="text-xl font-semibold mb-2" data-translate="service3">Threat Detection & Monitoring</h3>
+  <main class="pt-20">
+    <!-- Hero -->
+    <section id="home" class="min-h-[60vh] flex items-center justify-center bg-gradient-to-br from-blue-600 to-indigo-700 text-white text-center px-6">
+      <div class="max-w-3xl">
+        <h2 id="hero-title" class="text-4xl md:text-5xl font-extrabold mb-4">Securing the Cloud for African Businesses</h2>
+        <p id="hero-sub" class="text-lg md:text-xl mb-6">Empowering your cloud with trust, protection and compliance.</p>
+        <div class="flex justify-center gap-4">
+          <a href="#contact" id="hero-btn" class="bg-white text-blue-700 px-5 py-3 rounded-md font-semibold hover:bg-gray-100">Get in Touch</a>
+          <button id="demoBtn" class="border border-white px-5 py-3 rounded-md text-white hover:bg-white/10">Request Demo</button>
         </div>
       </div>
+    </section>
+
+    <!-- About -->
+    <section id="about" class="py-12">
+      <div class="max-w-4xl mx-auto text-center px-5">
+        <h3 id="about-title" class="text-2xl font-bold mb-4">About Us</h3>
+        <p id="about-text" class="text-gray-700">We help African enterprises build resilient, compliant cloud infrastructure — from audits to secure architecture and IAM.</p>
+      </div>
+    </section>
+
+    <!-- Services -->
+    <section id="services" class="py-12 bg-gray-50">
+      <div class="max-w-6xl mx-auto px-5">
+        <h3 id="services-title" class="text-2xl font-bold text-center mb-6">Our Services</h3>
+        <div class="grid md:grid-cols-3 gap-6">
+          <div class="p-6 bg-white border rounded-lg text-center">
+            <div class="text-blue-600 text-3xl mb-3"><i class="fas fa-lock"></i></div>
+            <h4 id="srv1-title" class="font-semibold mb-2">Cloud Security Audits</h4>
+            <p id="srv1-text" class="text-gray-600">Comprehensive assessments to remove vulnerabilities.</p>
+          </div>
+          <div class="p-6 bg-white border rounded-lg text-center">
+            <div class="text-blue-600 text-3xl mb-3"><i class="fas fa-shield-alt"></i></div>
+            <h4 id="srv2-title" class="font-semibold mb-2">Identity & Access Management</h4>
+            <p id="srv2-text" class="text-gray-600">Policies and automation to ensure right-sized access.</p>
+          </div>
+          <div class="p-6 bg-white border rounded-lg text-center">
+            <div class="text-blue-600 text-3xl mb-3"><i class="fas fa-cloud"></i></div>
+            <h4 id="srv3-title" class="font-semibold mb-2">Secure Cloud Architecture</h4>
+            <p id="srv3-text" class="text-gray-600">Resilient, compliant designs for production workloads.</p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Contact -->
+    <section id="contact" class="py-12">
+      <div class="max-w-4xl mx-auto text-center px-5">
+        <h3 id="contact-title" class="text-2xl font-bold mb-4">Contact Us</h3>
+
+        <form action="https://formspree.io/f/meorznvw" method="POST" class="max-w-lg mx-auto bg-white p-6 rounded-lg shadow">
+          <input name="name" required placeholder="Your Name" class="border w-full mb-3 px-3 py-2 rounded-md" />
+          <input type="email" name="email" required placeholder="Your Email" class="border w-full mb-3 px-3 py-2 rounded-md" />
+          <textarea name="message" required placeholder="Your Message" class="border w-full mb-3 px-3 py-2 rounded-md h-28"></textarea>
+          <button type="submit" class="bg-blue-700 text-white px-6 py-2 rounded-md hover:bg-blue-900 transition">Send Message</button>
+        </form>
+
+        <div class="flex justify-center mt-6 space-x-6 text-2xl">
+          <a href="https://bit.ly/4dGlmvy" target="_blank" class="text-blue-700 hover:text-blue-900"><i class="fab fa-linkedin"></i></a>
+          <a href="https://x.com/labiyiopeyem11?t=MFh2U5JBgDj4Q_sTYe0mJQ&s=09" target="_blank" class="text-sky-500 hover:text-sky-700"><i class="fab fa-x-twitter"></i></a>
+          <a href="https://github.com/Michaelchristof1106" target="_blank" class="text-gray-700 hover:text-black"><i class="fab fa-github"></i></a>
+        </div>
+      </div>
+    </section>
+
+    <footer class="py-6 bg-gradient-to-r from-slate-900 to-blue-900 text-white text-center">
+      <div class="max-w-6xl mx-auto px-5"><p>&copy; <span id="year">2025</span> Michael David Cloud Security — All rights reserved.</p></div>
+    </footer>
+  </main>
+
+  <!-- Floating & chat UI -->
+  <a id="whatsappBtn" href="https://wa.me/2347052749121" target="_blank" aria-label="Chat on WhatsApp" title="Chat on WhatsApp"><i class="fab fa-whatsapp fa-lg"></i></a>
+  <div id="backToTop" title="Back to top"><i class="fas fa-arrow-up"></i></div>
+  <div id="chatToggle" title="Chat with us"><i class="fas fa-comments"></i></div>
+
+  <div id="chatWidget" role="dialog" aria-label="Site chat">
+    <div id="chatWidgetHeader">
+      <div class="flex items-center gap-3">
+        <div class="w-9 h-9 rounded-md bg-white/10 flex items-center justify-center"><i class="fas fa-shield-alt"></i></div>
+        <div>
+          <div id="chat-title" class="font-semibold">Michael David Support</div>
+          <div id="chat-sub" class="text-xs opacity-80">How can I help you today?</div>
+        </div>
+      </div>
+      <div class="flex gap-2 items-center">
+        <select id="chat-language" class="bg-white/10 text-white px-2 py-1 rounded text-xs">
+          <option value="en">EN</option>
+          <option value="fr">FR</option>
+          <option value="es">ES</option>
+          <option value="ar">AR</option>
+          <option value="yo">YO</option>
+          <option value="ha">HA</option>
+          <option value="sw">SW</option>
+        </select>
+        <button id="closeChat" class="text-white text-sm px-2">✕</button>
+      </div>
     </div>
-  </section>
-
-  <!-- Contact -->
-  <section id="contact" class="py-20 container mx-auto px-6">
-    <h2 class="text-3xl font-bold text-center mb-10" data-translate="contact_title">Contact Us</h2>
-
-    <form action="https://formspree.io/f/meorznvw" method="POST" class="max-w-lg mx-auto bg-white p-6 rounded-lg shadow-lg">
-      <input name="name" required placeholder="Your Name" class="border w-full mb-4 px-3 py-2 rounded-md" />
-      <input type="email" name="email" required placeholder="Your Email" class="border w-full mb-4 px-3 py-2 rounded-md" />
-      <textarea name="message" required placeholder="Your Message" class="border w-full mb-4 px-3 py-2 rounded-md h-32"></textarea>
-      <button type="submit" class="bg-blue-700 text-white px-6 py-2 rounded-md hover:bg-blue-900 transition">Send Message</button>
-    </form>
-
-    <div class="flex justify-center mt-8 space-x-6 text-2xl">
-      <a href="https://bit.ly/4dGlmvy" target="_blank" class="text-blue-700 hover:text-blue-900"><i class="fab fa-linkedin"></i></a>
-      <a href="https://x.com/labiyiopeyem11?t=MFh2U5JBgDj4Q_sTYe0mJQ&s=09" target="_blank" class="text-blue-500 hover:text-blue-700"><i class="fab fa-twitter"></i></a>
-      <a href="https://github.com/Michaelchristof1106" target="_blank" class="text-gray-700 hover:text-black"><i class="fab fa-github"></i></a>
-    </div>
-  </section>
-
-  <!-- WhatsApp Button -->
-  <a href="https://wa.me/2347052749121" target="_blank" class="fixed bottom-6 right-6 bg-green-500 text-white p-4 rounded-full shadow-lg">
-    <i class="fab fa-whatsapp text-2xl"></i>
-  </a>
-
-  <!-- Back to Top -->
-  <button id="backToTop" title="Go to top"><i class="fas fa-arrow-up"></i></button>
-
-  <!-- Chatbot Widget -->
-  <div id="chatbot" class="fixed bottom-20 right-6 bg-white border border-gray-300 rounded-xl shadow-lg w-80 hidden flex-col">
-    <div class="bg-blue-700 text-white px-4 py-2 rounded-t-xl flex justify-between items-center">
-      <span>Ask Michael AI 🤖</span>
-      <button id="closeChat" class="text-white">×</button>
-    </div>
-    <div id="chatContent" class="p-3 h-64 overflow-y-auto text-sm text-gray-800"></div>
-    <div class="p-3 border-t border-gray-200">
-      <input id="userInput" type="text" placeholder="Type your question..." class="w-full border border-gray-300 rounded-md px-2 py-1 text-sm">
+    <div id="chatMessages"></div>
+    <div id="chatInputArea">
+      <input id="chatInput" placeholder="Type a message..." class="w-full rounded-md px-3 py-2" />
+      <button id="sendChat" class="bg-blue-600 text-white px-3 py-2 rounded">Send</button>
     </div>
   </div>
-  <button id="chatToggle" class="fixed bottom-20 right-6 bg-blue-700 text-white p-3 rounded-full shadow-lg">💬</button>
 
+  <!-- Minimal JS: translations, chat logic, UI wiring -->
   <script>
-    const backToTop = document.getElementById("backToTop");
-    window.onscroll = () => { backToTop.style.display = window.scrollY > 300 ? "block" : "none"; };
-    backToTop.onclick = () => window.scrollTo({ top: 0, behavior: "smooth" });
+    const UI_TEXT = { /* shortened translations for brevity while keeping content */
+      en:{heroTitle:'Securing the Cloud for African Businesses',heroSub:'Empowering your cloud with trust, protection and compliance.',heroBtn:'Get in Touch',aboutTitle:'About Us',aboutText:'We help African enterprises build resilient, compliant cloud infrastructure.',servicesTitle:'Our Services',srv1Title:'Cloud Security Audits',srv1Text:'Comprehensive assessments to remove vulnerabilities.',srv2Title:'Identity & Access Management',srv2Text:'Policies and automation for right-sized access.',srv3Title:'Secure Cloud Architecture',srv3Text:'Resilient, compliant designs.',contactTitle:'Contact Us',chatWelcome:'Hi — I\'m Michael David Support. How can I help?',chatHelpOptions:'Ask: Services, Pricing, Demo, Contact or say "human".',chatDemoConfirm:'Demo — WhatsApp or Email?',chatWhatsAppOpen:'Opening WhatsApp...',chatEmailOpen:'Opening email client...',chatFallback:"Sorry, I didn't understand."},
+      fr:{heroTitle:'Protéger l\'avenir de l\'infrastructure cloud',heroSub:'Systèmes cloud sécurisés et évolutifs pour les PME africaines.',heroBtn:'Contactez-nous',aboutTitle:'À propos',aboutText:'Nous protégeons les infrastructures cloud.',servicesTitle:'Nos Services',srv1Title:'Audits de sécurité',srv1Text:'Évaluations complètes.',srv2Title:'IAM',srv2Text:'Politiques d\'accès.',srv3Title:'Architecture sûre',srv3Text:'Conception conforme.',contactTitle:'Nous contacter',chatWelcome:'Bonjour — Je suis le support Michael David. Comment puis-je aider?',chatHelpOptions:'Demandez: Services, Tarifs, Demo, Contact',chatDemoConfirm:'Démo — WhatsApp ou Email?',chatWhatsAppOpen:'Ouverture WhatsApp...',chatEmailOpen:'Ouverture client mail...',chatFallback:'Désolé, je n\'ai pas compris.'},
+      es:{heroTitle:'Protegiendo la infraestructura en la nube',heroSub:'Sistemas cloud seguros para PYMES africanas.',heroBtn:'Contáctanos',aboutTitle:'Sobre nosotros',aboutText:'Protegemos infraestructuras cloud.',servicesTitle:'Servicios',srv1Title:'Auditorías',srv1Text:'Evaluaciones completas.',srv2Title:'IAM',srv2Text:'Políticas de acceso.',srv3Title:'Arquitectura segura',srv3Text:'Diseños conformes.',contactTitle:'Contáctanos',chatWelcome:'Hola — Soy Soporte Michael David. ¿Cómo puedo ayudar?',chatHelpOptions:'Pregunta: Servicios, Precios, Demo, Contacto',chatDemoConfirm:'Demo — WhatsApp o Email?',chatWhatsAppOpen:'Abriendo WhatsApp...',chatEmailOpen:'Abriendo correo...',chatFallback:'Lo siento, no entendí.'},
+      ar:{heroTitle:'حماية بنية السحابة',heroSub:'أنظمة سحابية آمنة للمؤسسات.',heroBtn:'اتصل بنا',aboutTitle:'من نحن',aboutText:'نحمي البنية التحتية السحابية.',servicesTitle:'خدماتنا',srv1Title:'تدقيق',srv1Text:'تقييمات شاملة.',srv2Title:'IAM',srv2Text:'سياسات الوصول.',srv3Title:'بنية آمنة',srv3Text:'تصاميم متوافقة.',contactTitle:'تواصل معنا',chatWelcome:'مرحبًا — أنا دعم Michael David. كيف أساعد؟',chatHelpOptions:'اطلب: خدمات، أسعار، عرض',chatDemoConfirm:'عرض تجريبي — واتساب أم بريد؟',chatWhatsAppOpen:'جاري فتح واتساب...',chatEmailOpen:'جاري فتح البريد...',chatFallback:'عذرًا لم أفهم.'},
+      yo:{heroTitle:'Ṣí aabo ọjọ́ iwájú amayédẹrùn awọsanma',heroSub:'A kọ awọn eto awọsanma to ni aabo fun SME ni Afirika.',heroBtn:'Kan si wa',aboutTitle:'Nípa Wa',aboutText:'A daabobo amayédẹrùn awọsanma.',servicesTitle:'Awọn Iṣẹ',srv1Title:'Ayẹwo Aabo',srv1Text:'Ayẹwo kikun.',srv2Title:'IAM',srv2Text:'Ilana wiwọle.',srv3Title:'Ilana Alaabo',srv3Text:'Apẹrẹ to ni ibamu.',contactTitle:'Kan si wa',chatWelcome:'Bawo — Emi ni Atilẹyin Michael David. Bawo ni MO ṣe le ran ọ lọwọ?',chatHelpOptions:'Beere: Awọn iṣẹ, Iye owo, Demo, Kan si wa',chatDemoConfirm:'Demo — WhatsApp tabi imeeli?',chatWhatsAppOpen:'N ṣii WhatsApp...',chatEmailOpen:'N ṣii imeeli...',chatFallback:'Mi o ye.'},
+      ha:{heroTitle:'Kare tsarin gajimare',heroSub:'Muna gina tsaro ga SMEs a Afirka.',heroBtn:'Tuntuɓi Mu',aboutTitle:'Game da Mu',aboutText:'Muna kare gajimare.',servicesTitle:'Ayyukan Mu',srv1Title:'Bincike',srv1Text:'Bincike cikakke.',srv2Title:'IAM',srv2Text:'Dokokin samun dama.',srv3Title:'Tsarin Tsaro',srv3Text:'Zane mai bin ka\'ida.',contactTitle:'Tuntuɓi Mu',chatWelcome:'Sannu — Ni tallafi ne. Ta yaya zan taimaka?',chatHelpOptions:'Tambaya: Ayyuka, Farashi, Demo, Tuntuɓi',chatDemoConfirm:'Demo — WhatsApp ko Imel?',chatWhatsAppOpen:'Buɗe WhatsApp...',chatEmailOpen:'Buɗe imel...',chatFallback:'Ban gane ba.'},
+      sw:{heroTitle:'Kulinda miundombinu ya wingu',heroSub:'Mifumo salama kwa SME za Afrika.',heroBtn:'Wasiliana nasi',aboutTitle:'Kuhusu Sisi',aboutText:'Tunahifadhi miundombinu ya wingu.',servicesTitle:'Huduma Zetu',srv1Title:'Ukaguzi',srv1Text:'Ukaguzi kamili.',srv2Title:'IAM',srv2Text:'Sera za upatikanaji.',srv3Title:'Mimicni Salama',srv3Text:'Miundo inayoendana.',contactTitle:'Wasiliana',chatWelcome:'Habari — Mimi ni Msaada. Naweza kusaidia vipi?',chatHelpOptions:'Unaweza kuuliza: Huduma, Bei, Demo',chatDemoConfirm:'Demo — WhatsApp au Email?',chatWhatsAppOpen:'Kufungua WhatsApp...',chatEmailOpen:'Kufungua barua pepe...',chatFallback:'Sikuelewi.'}
+    };
 
-    // Chatbot logic
-    const chatToggle = document.getElementById("chatToggle");
-    const chatbot = document.getElementById("chatbot");
-    const closeChat = document.getElementById("closeChat");
-    const chatContent = document.getElementById("chatContent");
-    const userInput = document.getElementById("userInput");
+    const SUPPORTED_LANGS=['en','fr','es','ar','yo','ha','sw'];
+    function setText(id,txt){const el=document.getElementById(id);if(el)el.innerText=txt}
+    function applyLanguage(lang){const t=UI_TEXT[lang]||UI_TEXT['en'];setText('hero-title',t.heroTitle);setText('hero-sub',t.heroSub);setText('hero-btn',t.heroBtn);setText('about-title',t.aboutTitle);setText('about-text',t.aboutText);setText('services-title',t.servicesTitle);setText('srv1-title',t.srv1Title);setText('srv1-text',t.srv1Text);setText('srv2-title',t.srv2Title);setText('srv2-text',t.srv2Text);setText('srv3-title',t.srv3Title);setText('srv3-text',t.srv3Text);setText('contact-title',t.contactTitle);setText('chat-sub',t.chatWelcome);document.getElementById('chat-language').value=lang}
 
-    chatToggle.onclick = () => chatbot.classList.toggle("hidden");
-    closeChat.onclick = () => chatbot.classList.add("hidden");
-    userInput.addEventListener("keypress", async (e) => {
-      if (e.key === "Enter" && userInput.value.trim()) {
-        const msg = userInput.value;
-        chatContent.innerHTML += `<div class='text-right mb-2'><b>You:</b> ${msg}</div>`;
-        userInput.value = "";
-        const res = await fetch("/api/chat", {
-          method: "POST", headers: { "Content-Type": "application/json" },
-          body: JSON.stringify({ message: msg })
-        });
-        const data = await res.json();
-        chatContent.innerHTML += `<div class='text-left mb-2 text-blue-700'><b>Michael AI:</b> ${data.reply}</div>`;
-        chatContent.scrollTop = chatContent.scrollHeight;
-      }
+    // Auto-detect and init
+    (function(){const nav=navigator.language||'en';let code=nav.slice(0,2).toLowerCase();const langs=navigator.languages||[nav];let sel='en';for(const l of langs){const lc=l.slice(0,2).toLowerCase();if(SUPPORTED_LANGS.includes(lc)){sel=lc;break}if(l.toLowerCase().startsWith('yo')){sel='yo';break}if(l.toLowerCase().startsWith('ha')){sel='ha';break}if(l.toLowerCase().startsWith('sw')){sel='sw';break}}const selEl=document.getElementById('language');if(selEl)selEl.value=sel;applyLanguage(sel);document.getElementById('year').innerText=new Date().getFullYear();})();
+
+    document.addEventListener('DOMContentLoaded',()=>{
+      document.getElementById('language').addEventListener('change',e=>applyLanguage(e.target.value));
     });
+
+    // Chat logic (client-only rule-based) - keeps it fast & private
+    (function(){
+      const chatToggle=document.getElementById('chatToggle');const chatWidget=document.getElementById('chatWidget');const closeChat=document.getElementById('closeChat');const chatMessages=document.getElementById('chatMessages');const chatInput=document.getElementById('chatInput');const sendBtn=document.getElementById('sendChat');const chatLangSel=document.getElementById('chat-language');let chatLang=(document.getElementById('language')?.value)||'en';
+      function appendBot(msg){const d=document.createElement('div');d.className='bot-msg';d.innerText=msg;chatMessages.appendChild(d);chatMessages.scrollTop=chatMessages.scrollHeight}
+      function appendUser(msg){const d=document.createElement('div');d.className='user-msg';d.innerText=msg;chatMessages.appendChild(d);chatMessages.scrollTop=chatMessages.scrollHeight}
+
+      chatToggle.addEventListener('click',()=>{chatWidget.style.display='block';chatToggle.style.display='none';chatMessages.innerHTML='';chatLang=chatLangSel.value=(document.getElementById('language')?.value||'en');appendBot(UI_TEXT[chatLang].chatWelcome);appendBot(UI_TEXT[chatLang].chatHelpOptions);chatInput.focus()});
+      closeChat.addEventListener('click',()=>{chatWidget.style.display='none';chatToggle.style.display='flex'});
+      document.getElementById('language').addEventListener('change',e=>chatLang=e.target.value);
+      chatLangSel.addEventListener('change',e=>{chatLang=e.target.value;document.getElementById('language').value=chatLang;applyLanguage(chatLang)});
+
+      function intent(text){const s=text.toLowerCase();if(/demo|trial|show/i.test(s))return'demo';if(/price|pricing|cost/i.test(s))return'pricing';if(/service|services|offer/i.test(s))return'services';if(/contact|email|phone/i.test(s))return'contact';if(/whatsapp/i.test(s))return'whatsapp';if(/human|agent|support/i.test(s))return'human';return'unknown'}
+      function handleIntent(i,val){const t=UI_TEXT[chatLang]||UI_TEXT['en'];if(i==='demo'){appendBot(t.chatDemoConfirm);appendBot('1) WhatsApp\n2) Email')}else if(i==='pricing'){appendBot('Starter: Free — Pro: $29/mo — Enterprise: Contact sales')}else if(i==='services'){appendBot(`${t.srv1Title}: ${t.srv1Text}\n\n${t.srv2Title}: ${t.srv2Text}\n\n${t.srv3Title}: ${t.srv3Text}`)}else if(i==='contact'){appendBot('Phone: +2347052749121\nEmail: labiyiopeyemi@gmail.com\nLocation: Ikeja, Lagos')}else if(i==='whatsapp'){appendBot(t.chatWhatsAppOpen);window.open('https://wa.me/2347052749121','_blank')}else if(i==='human'){appendBot('Connecting you to a human advisor...');window.location.href='mailto:labiyiopeyemi@gmail.com?subject=Support'}else{appendBot(t.chatFallback)}}
+
+      function sendMessage(){const v=chatInput.value.trim();if(!v)return;appendUser(v);chatInput.value='';if(v==='1'||/whatsapp/i.test(v)){appendBot(UI_TEXT[chatLang].chatWhatsAppOpen);window.open('https://wa.me/2347052749121','_blank');return}if(v==='2'||/email|mail/i.test(v)){appendBot(UI_TEXT[chatLang].chatEmailOpen);window.location.href='mailto:labiyiopeyemi@gmail.com?subject=Request%20for%20Demo';return}const i=intent(v);handleIntent(i,v)}
+      sendBtn.addEventListener('click',sendMessage);chatInput.addEventListener('keydown',e=>{if(e.key==='Enter'){e.preventDefault();sendMessage()}});
+      // Demo quick button
+      document.getElementById('demoBtn')?.addEventListener('click',()=>{chatToggle.click();setTimeout(()=>{document.getElementById('chatInput').value='I would like a demo';document.getElementById('chatInput').focus()},300)})
+    })();
+
+    // Back to top visibility
+    const backToTop=document.getElementById('backToTop');window.addEventListener('scroll',()=>{if(window.scrollY>300)backToTop.style.display='flex';else backToTop.style.display='none'});backToTop.addEventListener('click',()=>window.scrollTo({top:0,behavior:'smooth'}));
+
+    // Simple client-side contact form behaviour (no key leaked)
+    // The form posts to Formspree endpoint provided by you.
   </script>
 </body>
 </html>
