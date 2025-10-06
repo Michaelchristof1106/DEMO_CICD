@@ -5,167 +5,167 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Michael David Cloud Security</title>
 
-  <!-- ✅ Tailwind CSS -->
-  <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
+  <!-- Favicon -->
+  <link rel="icon" type="image/png" href="public/favicon.ico" />
 
-  <!-- ✅ Updated Font Awesome (visible icons) -->
-  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.6.0/css/all.min.css">
+  <!-- Tailwind CSS -->
+  <script src="https://cdn.tailwindcss.com"></script>
+
+  <!-- Font Awesome -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.6.0/css/all.min.css" />
+
+  <!-- Google Analytics -->
+  <script async src="https://www.googletagmanager.com/gtag/js?id=YOUR_MEASUREMENT_ID"></script>
+  <script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag(){dataLayer.push(arguments);}
+    gtag("js", new Date());
+    gtag("config", "YOUR_MEASUREMENT_ID");
+  </script>
 
   <style>
-    html {
-      scroll-behavior: smooth;
-    }
-
-    /* Floating Back-to-Top Button */
+    html { scroll-behavior: smooth; }
     #backToTop {
       position: fixed;
-      bottom: 90px;
-      right: 30px;
+      bottom: 80px;
+      right: 20px;
+      background-color: #1d4ed8;
+      color: white;
+      padding: 10px 14px;
+      border-radius: 50%;
       display: none;
-      background-color: #2563eb;
-      color: white;
-      border: none;
-      border-radius: 50%;
-      padding: 12px 15px;
-      cursor: pointer;
-      z-index: 1000;
-    }
-
-    #backToTop:hover {
-      background-color: #1e40af;
-    }
-
-    /* Floating WhatsApp Button */
-    #whatsappBtn {
-      position: fixed;
-      bottom: 20px;
-      left: 30px;
-      background-color: #25D366;
-      color: white;
-      border-radius: 50%;
-      width: 55px;
-      height: 55px;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      font-size: 28px;
-      z-index: 1000;
-      box-shadow: 0 4px 6px rgba(0,0,0,0.3);
-      transition: transform 0.3s ease;
-    }
-
-    #whatsappBtn:hover {
-      transform: scale(1.1);
     }
   </style>
 </head>
 
-<body class="bg-gray-50 text-gray-800">
-
+<body class="bg-gray-50 font-sans leading-relaxed text-gray-800">
   <!-- Header -->
-  <header class="bg-blue-900 text-white py-4 fixed w-full top-0 shadow-lg z-50">
-    <div class="container mx-auto flex justify-between items-center px-6">
-      <h1 class="text-2xl font-bold">Michael David Cloud Security</h1>
-      <nav>
-        <a href="#about" class="mx-3 hover:text-blue-300">About</a>
-        <a href="#services" class="mx-3 hover:text-blue-300">Services</a>
-        <a href="#contact" class="mx-3 hover:text-blue-300">Contact</a>
-      </nav>
+  <header class="bg-white shadow sticky top-0 z-50">
+    <div class="container mx-auto px-6 py-4 flex justify-between items-center">
+      <div class="flex items-center space-x-3">
+        <img src="public/logo.png" alt="Michael David Cloud Security Logo" class="w-12 h-12 rounded-full" />
+        <h1 class="text-2xl font-bold text-gray-800">Michael David Cloud Security</h1>
+      </div>
+
+      <!-- Language Selector -->
+      <select id="language-select" class="border rounded px-2 py-1 text-sm">
+        <option value="en">🇬🇧 English</option>
+        <option value="fr">🇫🇷 Français</option>
+        <option value="es">🇪🇸 Español</option>
+        <option value="ar">🇸🇦 العربية</option>
+        <option value="yo">🇳🇬 Yorùbá</option>
+        <option value="ha">🇳🇬 Hausa</option>
+        <option value="sw">🇹🇿 Kiswahili</option>
+      </select>
     </div>
   </header>
 
-  <!-- Hero Section -->
-  <section class="h-screen bg-gradient-to-r from-blue-800 to-blue-500 flex items-center justify-center text-center text-white px-6">
-    <div>
-      <h2 class="text-5xl font-extrabold mb-4">Protecting the Future of Cloud Infrastructure</h2>
-      <p class="text-xl mb-8">We build secure and scalable cloud systems tailored for African SMEs and enterprises worldwide.</p>
-      <a href="#contact" class="bg-white text-blue-700 px-6 py-3 rounded-full font-semibold hover:bg-gray-200 transition">Get in Touch</a>
-    </div>
-  </section>
-
-  <!-- About Section -->
-  <section id="about" class="py-20 container mx-auto px-6">
-    <h2 class="text-3xl font-bold text-center mb-10">About Us</h2>
-    <p class="text-lg leading-relaxed text-center max-w-3xl mx-auto">
-      At Michael David Cloud Security, we specialize in cloud infrastructure protection, identity and access management, 
-      and compliance automation. Our mission is to make cloud computing safer for businesses in Africa and beyond.
+  <!-- Hero -->
+  <section class="text-center py-24 bg-gradient-to-r from-blue-800 to-blue-600 text-white">
+    <h2 class="text-4xl font-bold mb-4" data-translate="hero_title">
+      Secure Your Cloud, Secure Your Future
+    </h2>
+    <p class="text-lg max-w-2xl mx-auto" data-translate="hero_sub">
+      Michael David Cloud Security helps businesses across Africa build and protect scalable, compliant, and resilient cloud infrastructure.
     </p>
   </section>
 
-  <!-- Services Section -->
-  <section id="services" class="bg-gray-100 py-20">
-    <div class="container mx-auto px-6">
-      <h2 class="text-3xl font-bold text-center mb-12">Our Services</h2>
+  <!-- About -->
+  <section id="about" class="py-20 container mx-auto px-6 text-center">
+    <h2 class="text-3xl font-bold mb-6" data-translate="about_title">About Us</h2>
+    <p data-translate="about_text">
+      We are committed to empowering African enterprises with advanced cloud security solutions that ensure data privacy, system integrity, and business continuity in the digital age.
+    </p>
+  </section>
+
+  <!-- Services -->
+  <section id="services" class="py-20 bg-gray-100">
+    <div class="container mx-auto px-6 text-center">
+      <h2 class="text-3xl font-bold mb-10" data-translate="services_title">Our Services</h2>
       <div class="grid md:grid-cols-3 gap-8">
-        <div class="bg-white shadow-lg rounded-xl p-6 text-center">
-          <i class="fas fa-lock text-blue-700 text-4xl mb-4"></i>
-          <h3 class="text-xl font-semibold mb-2">Cloud Security Audits</h3>
-          <p>Comprehensive security assessments to protect your cloud assets from potential vulnerabilities.</p>
+        <div class="bg-white shadow-lg p-6 rounded-lg">
+          <i class="fas fa-cloud text-3xl text-blue-700 mb-4"></i>
+          <h3 class="text-xl font-semibold mb-2" data-translate="service1">Cloud Infrastructure Protection</h3>
         </div>
-        <div class="bg-white shadow-lg rounded-xl p-6 text-center">
-          <i class="fas fa-shield-alt text-blue-700 text-4xl mb-4"></i>
-          <h3 class="text-xl font-semibold mb-2">Identity & Access Management</h3>
-          <p>Implementing strong IAM systems to ensure that the right people have the right access.</p>
+        <div class="bg-white shadow-lg p-6 rounded-lg">
+          <i class="fas fa-lock text-3xl text-blue-700 mb-4"></i>
+          <h3 class="text-xl font-semibold mb-2" data-translate="service2">Data Encryption & Compliance</h3>
         </div>
-        <div class="bg-white shadow-lg rounded-xl p-6 text-center">
-          <i class="fas fa-cloud text-blue-700 text-4xl mb-4"></i>
-          <h3 class="text-xl font-semibold mb-2">Secure Cloud Architecture</h3>
-          <p>Design and deploy resilient cloud solutions following best security practices.</p>
+        <div class="bg-white shadow-lg p-6 rounded-lg">
+          <i class="fas fa-shield-alt text-3xl text-blue-700 mb-4"></i>
+          <h3 class="text-xl font-semibold mb-2" data-translate="service3">Threat Detection & Monitoring</h3>
         </div>
       </div>
     </div>
   </section>
 
-  <!-- ✅ Contact Section (Updated with GitHub + working icons) -->
+  <!-- Contact -->
   <section id="contact" class="py-20 container mx-auto px-6">
-    <h2 class="text-3xl font-bold text-center mb-10">Contact Us</h2>
-    <div class="text-center text-lg">
-      <p><strong>Location:</strong> Ikeja, Lagos, Nigeria</p>
-      <p><strong>Phone:</strong> +2347052749121, +2349167113539</p>
-      <p><strong>Email:</strong> <a href="mailto:labiyiopeyemi@gmail.com" class="text-blue-700 hover:underline">labiyiopeyemi@gmail.com</a></p>
-      
-      <div class="flex justify-center mt-6 space-x-6 text-2xl">
-        <a href="https://bit.ly/4dGlmvy" target="_blank" class="text-blue-700 hover:text-blue-900" title="LinkedIn">
-          <i class="fab fa-linkedin"></i>
-        </a>
-        <a href="https://x.com/labiyiopeyem11?t=MFh2U5JBgDj4Q_sTYe0mJQ&s=09" target="_blank" class="text-blue-500 hover:text-blue-700" title="Twitter">
-          <i class="fab fa-twitter"></i>
-        </a>
-        <a href="https://github.com/Michaelchristof1106" target="_blank" class="text-gray-700 hover:text-black" title="GitHub">
-          <i class="fab fa-github"></i>
-        </a>
-      </div>
+    <h2 class="text-3xl font-bold text-center mb-10" data-translate="contact_title">Contact Us</h2>
+
+    <form action="https://formspree.io/f/meorznvw" method="POST" class="max-w-lg mx-auto bg-white p-6 rounded-lg shadow-lg">
+      <input name="name" required placeholder="Your Name" class="border w-full mb-4 px-3 py-2 rounded-md" />
+      <input type="email" name="email" required placeholder="Your Email" class="border w-full mb-4 px-3 py-2 rounded-md" />
+      <textarea name="message" required placeholder="Your Message" class="border w-full mb-4 px-3 py-2 rounded-md h-32"></textarea>
+      <button type="submit" class="bg-blue-700 text-white px-6 py-2 rounded-md hover:bg-blue-900 transition">Send Message</button>
+    </form>
+
+    <div class="flex justify-center mt-8 space-x-6 text-2xl">
+      <a href="https://bit.ly/4dGlmvy" target="_blank" class="text-blue-700 hover:text-blue-900"><i class="fab fa-linkedin"></i></a>
+      <a href="https://x.com/labiyiopeyem11?t=MFh2U5JBgDj4Q_sTYe0mJQ&s=09" target="_blank" class="text-blue-500 hover:text-blue-700"><i class="fab fa-twitter"></i></a>
+      <a href="https://github.com/Michaelchristof1106" target="_blank" class="text-gray-700 hover:text-black"><i class="fab fa-github"></i></a>
     </div>
   </section>
 
-  <!-- Footer -->
-  <footer class="bg-blue-900 text-white py-6 text-center">
-    <p>&copy; 2025 Michael David Cloud Security. All Rights Reserved.</p>
-  </footer>
-
-  <!-- Back to Top Button -->
-  <button id="backToTop" title="Go to top"><i class="fas fa-arrow-up"></i></button>
-
-  <!-- WhatsApp Floating Button -->
-  <a href="https://wa.me/2347052749121" target="_blank" id="whatsappBtn" title="Chat on WhatsApp">
-    <i class="fab fa-whatsapp"></i>
+  <!-- WhatsApp Button -->
+  <a href="https://wa.me/2347052749121" target="_blank" class="fixed bottom-6 right-6 bg-green-500 text-white p-4 rounded-full shadow-lg">
+    <i class="fab fa-whatsapp text-2xl"></i>
   </a>
 
-  <script>
-    const backToTopBtn = document.getElementById('backToTop');
+  <!-- Back to Top -->
+  <button id="backToTop" title="Go to top"><i class="fas fa-arrow-up"></i></button>
 
-    window.addEventListener('scroll', () => {
-      if (window.scrollY > 300) {
-        backToTopBtn.style.display = 'block';
-      } else {
-        backToTopBtn.style.display = 'none';
+  <!-- Chatbot Widget -->
+  <div id="chatbot" class="fixed bottom-20 right-6 bg-white border border-gray-300 rounded-xl shadow-lg w-80 hidden flex-col">
+    <div class="bg-blue-700 text-white px-4 py-2 rounded-t-xl flex justify-between items-center">
+      <span>Ask Michael AI 🤖</span>
+      <button id="closeChat" class="text-white">×</button>
+    </div>
+    <div id="chatContent" class="p-3 h-64 overflow-y-auto text-sm text-gray-800"></div>
+    <div class="p-3 border-t border-gray-200">
+      <input id="userInput" type="text" placeholder="Type your question..." class="w-full border border-gray-300 rounded-md px-2 py-1 text-sm">
+    </div>
+  </div>
+  <button id="chatToggle" class="fixed bottom-20 right-6 bg-blue-700 text-white p-3 rounded-full shadow-lg">💬</button>
+
+  <script>
+    const backToTop = document.getElementById("backToTop");
+    window.onscroll = () => { backToTop.style.display = window.scrollY > 300 ? "block" : "none"; };
+    backToTop.onclick = () => window.scrollTo({ top: 0, behavior: "smooth" });
+
+    // Chatbot logic
+    const chatToggle = document.getElementById("chatToggle");
+    const chatbot = document.getElementById("chatbot");
+    const closeChat = document.getElementById("closeChat");
+    const chatContent = document.getElementById("chatContent");
+    const userInput = document.getElementById("userInput");
+
+    chatToggle.onclick = () => chatbot.classList.toggle("hidden");
+    closeChat.onclick = () => chatbot.classList.add("hidden");
+    userInput.addEventListener("keypress", async (e) => {
+      if (e.key === "Enter" && userInput.value.trim()) {
+        const msg = userInput.value;
+        chatContent.innerHTML += `<div class='text-right mb-2'><b>You:</b> ${msg}</div>`;
+        userInput.value = "";
+        const res = await fetch("/api/chat", {
+          method: "POST", headers: { "Content-Type": "application/json" },
+          body: JSON.stringify({ message: msg })
+        });
+        const data = await res.json();
+        chatContent.innerHTML += `<div class='text-left mb-2 text-blue-700'><b>Michael AI:</b> ${data.reply}</div>`;
+        chatContent.scrollTop = chatContent.scrollHeight;
       }
     });
-
-    backToTopBtn.addEventListener('click', () => {
-      window.scrollTo({ top: 0, behavior: 'smooth' });
-    });
   </script>
-
 </body>
 </html>
